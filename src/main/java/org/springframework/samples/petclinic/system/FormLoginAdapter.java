@@ -7,17 +7,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
-public class AuthenticationAdapter extends WebSecurityConfigurerAdapter {
+public class FormLoginAdapter extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/login/**").permitAll()
-//            .antMatchers("/**/edit", "/**/new").authenticated()
             .antMatchers("/**/pets/*/edit", "/**/visits/*/edit", "/**/pets/new", "/**/visits/new").authenticated()
             //.anyRequest().authenticated()
             .and()
