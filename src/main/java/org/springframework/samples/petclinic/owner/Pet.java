@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +38,7 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.samples.petclinic.visit.Visit;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Simple business object representing a pet.
@@ -60,6 +62,10 @@ public class Pet extends NamedEntity {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;
+
+
+    @Column(name = "photo")
+    private byte[] photo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)
     private Set<Visit> visits = new LinkedHashSet<>();
@@ -111,4 +117,12 @@ public class Pet extends NamedEntity {
         visit.setPetId(this.getId());
     }
 
+    void setPhoto(MultipartFile file) throws IOException {
+        this.photo = file.getBytes();
+
+    }
+
+    byte[] getPhoto() {
+        return photo;
+    }
 }
