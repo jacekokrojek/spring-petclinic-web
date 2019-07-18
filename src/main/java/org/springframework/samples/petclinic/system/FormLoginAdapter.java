@@ -15,8 +15,8 @@ public class FormLoginAdapter extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/login/**").permitAll()
-//            .antMatchers("/**/pets/*/edit", "/**/visits/*/edit", "/**/pets/new", "/**/visits/new").authenticated()
-            .anyRequest().authenticated()
+            .antMatchers("/**/visits/*/edit", "/**/visits/new").authenticated()
+             //.anyRequest().authenticated()
             .and()
             .formLogin().and()
             .csrf().disable();
